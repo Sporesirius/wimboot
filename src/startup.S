@@ -56,6 +56,15 @@ startup:
 	/* Should never return */
 	jmp	reboot
 	.size	startup, . - startup
+	
+	.section ".text", "ax", @progbits
+	.globl	efihandover
+	.globl	efihandover64
+efihandover:
+        .org    .+512, 0x90
+efihandover64:
+	jmp	efi_linuxentry
+	.size	startup, . - startup
 
 	/* Reboot system */
 	.section ".text", "ax", @progbits
